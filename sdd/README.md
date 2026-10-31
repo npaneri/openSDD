@@ -52,10 +52,13 @@ To adopt this method in a new repository: copy `specs/sdd/`, then run stage 01 �
 
 | Term | Meaning |
 |---|---|
-| SpecSet | A feature area: a folder under `specs/` with a constitution plus phase directories |
-| Constitution | The three SpecSet-root files: `mission.md`, `tech-stack.md`, `roadmap.md` |
-| Phase | One small, independently mergeable unit of work; numbered sequentially; has a dated spec directory |
-| Task group | A numbered section of a phase's `plan.md` with its own exit criteria |
-| Checklist | The verification table in a phase's `validation.md`; filled with real outcomes |
-| Degradation table | (When applicable) the canonical list of failure modes and their behaviors, defined in the mission and referenced verbatim by every later artifact |
-| Stakeholder | Whoever owns the decisions — the user, product owner, or lead |
+| SpecSet | A feature area: a folder under `specs/` with a constitution plus phase directories. Terminology matches broader SDD community usage (cf. OpenSpec, GitHub Spec Kit). |
+| Constitution | The three SpecSet-root files: `mission.md`, `tech-stack.md`, `roadmap.md`. Also called the "constitution set" or "spec contract". |
+| Phase | One small, independently mergeable unit of work; numbered sequentially (1, 2, 3 …); has a dated spec directory `YYYY-MM-DD-<N>-<slug>`. |
+| Task group | A numbered section of a phase's `plan.md` with its own exit criteria. One task group = one coherent increment with its own gate. |
+| Checklist | The verification table in a phase's `validation.md`; filled with real, recorded outcomes — never from memory. The authoritative "definition of done". |
+| Degradation table | (When applicable) the canonical list of failure modes and their behaviors, defined in the mission and referenced verbatim by every later artifact. Vocabulary is AI-agnostic and works across all assistants. |
+| Stakeholder | Whoever owns the decisions — the user, product owner, or lead. In OpenSDD, the stakeholder role is identified in the constitution's mission.md and tech-stack.md. |
+| Role | A perspective into the SDD cycle (PM, developer, QA, architect). Each role has a preferred path through the phases, documented in `catalog/roles/`. |
+| Extension | A single Markdown file (a phase type, a gate, a template variant) plus one index line. Discovered by reading, not by tooling. No loader, no code, no registry. |
+| Catalog | The `catalog/` folder containing role-based configurations and phase-cycle variants for common roles. Discovered by reading, not by tooling. |
