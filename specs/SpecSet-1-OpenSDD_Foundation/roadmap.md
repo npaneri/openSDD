@@ -18,16 +18,16 @@ Ten sequential phases, ordered by dependency. Each phase has a dated spec direct
 
 | Phase | Feature | Spec directory | Status |
 |---|---|---|---|
-| 1 | Repo scaffolding (README, LICENSE, git init) | `2026-10-31-1-repo-scaffolding/` | ⬜ SPEC COMPLETE — not started |
-| 2 | Minimal example SpecSet (template proof) | `2026-10-31-2-minimal-example/` | ⬜ SPEC COMPLETE — not started |
-| 3 | `scaffold.sh` scaffolding script | `2026-10-31-3-scaffold-script/` | ⬜ SPEC COMPLETE — not started |
-| 4 | AI-compatibility documentation | `2026-10-31-4-ai-compatibility/` | ⬜ SPEC COMPLETE — not started |
-| 5 | Extensions mechanism | `2026-10-31-5-extensions-mechanism/` | ⬜ SPEC COMPLETE — not started |
-| 6 | Bug-fix + idea-assessment templates | `2026-10-31-6-bug-idea-templates/` | ⬜ SPEC COMPLETE — not started |
-| 7 | Terminology alignment + catalog/role configs | `2026-10-31-7-terminology-catalog/` | ⬜ SPEC COMPLETE — not started |
-| 8 | Minimal `sdd` CLI wrapper | `2026-10-31-8-cli-wrapper/` | ⬜ SPEC COMPLETE — not started |
-| 9 | Cross-repo store guidance | `2026-10-31-9-stores-guidance/` | ⬜ SPEC COMPLETE — not started |
-| 10 | Agent-skill wrapper + integrations + closeout | `2026-10-31-10-skill-integrations-closeout/` | ⬜ SPEC COMPLETE — not started |
+| 1 | Repo scaffolding (README, LICENSE, git init) | `2026-10-31-1-repo-scaffolding/` | ✅ COMPLETE |
+| 2 | Minimal example SpecSet (template proof) | `2026-10-31-2-minimal-example/` | ✅ COMPLETE |
+| 3 | `scaffold.sh` scaffolding script | `2026-10-31-3-scaffold-script/` | ✅ COMPLETE |
+| 4 | AI-compatibility documentation | `2026-10-31-4-ai-compatibility/` | ✅ COMPLETE |
+| 5 | Extensions mechanism | `2026-10-31-5-extensions-mechanism/` | ✅ COMPLETE |
+| 6 | Bug-fix + idea-assessment templates | `2026-10-31-6-bug-idea-templates/` | ✅ COMPLETE |
+| 7 | Terminology alignment + catalog/role configs | `2026-10-31-7-terminology-catalog/` | ✅ COMPLETE |
+| 8 | Minimal `sdd` CLI wrapper | `2026-10-31-8-cli-wrapper/` | ✅ COMPLETE |
+| 9 | Cross-repo store guidance | `2026-10-31-9-stores-guidance/` | ✅ COMPLETE |
+| 10 | Agent-skill wrapper + integrations + closeout | `2026-10-31-10-skill-integrations-closeout/` | ✅ COMPLETE |
 
 Status vocabulary: `⬜ SPEC COMPLETE — not started` → `🔨 IN PROGRESS` → `✅ COMPLETE` (checklist filled in `validation.md`, committed).
 
