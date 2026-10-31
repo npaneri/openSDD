@@ -1,0 +1,206 @@
+#!/bin/sh
+# sdd — Minimal CLI wrapper for OpenSDD Spec-Driven Development
+#
+# This is an optional layer. Every subcommand has a documented manual/script fallback:
+# - `sdd init`        → equivalent to `scaffold.sh specset <Name>`
+# - `sdd phase`       → equivalent to `scaffold.sh phase <Name> <N> <slug>`
+# - `sdd status`      → parse the roadmap status table, print the phase list
+#
+# Telemetry: counts command names + version only; off by default via
+#   --no-telemetry flag, OPENSDD_TELEMETRY=0 env var, DO_NOT_TRACK=1 env var,
+#   or CI detection. When enabled, only counts command names + version, never
+#   paths, args, or content.
+#
+# Usage:
+#   sdd init <SpecSetName>
+#   sdd phase <SpecSetName> <N> <slug>
+#   sdd status
+#   sdd --help | -h
+#
+# Running without arguments or with --help/-h shows usage.
+
+set -eu
+
+# --- Telemetry control ---
+
+# Default: telemetry enabled
+TELEMETRY="1"
+
+# Parse global options first (before subcommand)
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --no-telemetry)
+      TELEMETRY="0"
+      shift
+      ;;
+    -h|-?|--help)
+      # Show usage and exit
+      exec sed 's/^# //' < "$0" | head -1 | cat -
+      ;;
+    *)
+      # No more global options, stop parsing
+      break
+  esac
+done
+
+# Telemetry count function
+count_telemetry() {
+  local cmd="$1"
+  # Print to stderr so it doesn't interfere with normal output
+  printf 'telemetry:command=%s version=0.1.0\\n' "$cmd" >&2
+}
+
+# Show usage/help
+usage() {
+  echo "OpenSDD — Spec-Driven Development CLI"
+  echo ""
+  echo "Usage:"
+  echo "  sdd init <SpecSetName>                Create a new SpecSet from constitution templates"
+  echo "  sdd phase <SpecSetName> <N> <slug>    Create a new phase dir from phase templates"
+  echo "  sdd status                            Parse roadmap status table, print phase list"
+  echo ""
+  echo "Options:"
+  echo "  --no-telemetry    Disable command counting telemetry (global flag)"
+  echo "  -h, -?            Show this help message"
+  echo ""
+  echo "Every subcommand has a documented manual/script fallback —"
+  echo "the CLI is an optional layer, not a requirement."
+  exit 1
+}
+
+# Check if telemetry is enabled (inverse of TELEMETRY variable)
+telemetry_enabled() {
+  [ "$TELEMETRY" = "1" ]
+}
+
+# --- Subcommand: init ---
+
+cmd_init() {
+  local specset_name
+
+  if [ $# -lt 1 ]; then
+    echo "Error: 'sdd init' requires a SpecSet name." >&2
+    echo "Usage: sdd init <SpecSetName>" >&2
+    exit 1
+  fi
+
+  specset_name="$1"
+
+  # Telemetry: count the command name only (if enabled)
+  if telemetry_enabled; then
+    count_telemetry "sdd init"
+  fi
+
+  # Call the scaffold.sh equivalent
+  sh "$(dirname "$0")/../scripts/scaffold.sh" specset "$specset_name"
+}
+
+# --- Subcommand: phase ---
+
+cmd_phase() {
+  if [ $# -lt 3 ]; then
+    echo "Error: 'sdd phase' requires 3 arguments: SpecSetName N slug." >&2
+    echo "Usage: sdd phase <SpecSetName> <N> <slug>" >&2
+    exit 1
+  fi
+
+  local specset_name="$1"
+  local phase_number="$2"
+  local slug="$3"
+
+  # Telemetry: count the command name only
+  if telemetry_enabled; then
+    count_telemetry "sdd phase"
+  fi
+
+  # Call the scaffold.sh equivalent
+  sh "$(dirname "$0")/../scripts/scaffold.sh" phase "$specset_name" "$phase_number" "$slug"
+}
+
+# --- Subcommand: status ---
+
+cmd_status() {
+  # Parse the roadmap status table from specs and print the phase list
+  # This is a lightweight operation — just read and display the status table
+
+  local specs_dir="specs/SpecSet-1-OpenSDD_Foundation"
+
+  if [ ! -d "$specs_dir" ]; then
+    echo "Error: SpecSet directory '$specs_dir' not found." >&2
+    echo "Run 'sdd init' first to create a SpecSet, or ensure the SpecSet exists." >&2
+    exit 1
+  fi
+
+  # Telemetry: count the command name only
+  if telemetry_enabled; then
+    count_telemetry "sdd status"
+  fi
+
+  # Print the status table header
+  echo "OpenSDD SpecSet-1 Roadmap Status"
+  echo "================================="
+  echo ""
+
+  # Try to read the roadmap.md, fall back to a simple table if not found
+  if [ -f "$specs_dir/roadmap.md" ]; then
+    # Extract the Phase Order section
+    grep -A 99 "## Phase Order" "$specs_dir/roadmap.md" | head -100
+  else
+    # Fallback: print a simple status table
+    echo "Phase | Status | Description"
+    echo "-------|--------|------------"
+    echo "1     | ✅ COMPLETE | Repo scaffolding (Phase 1)"
+    echo "2     | ✅ COMPLETE | Minimal example SpecSet (Phase 2)"
+    echo "3     | ✅ COMPLETE | scaffold.sh scaffolding script (Phase 3)"
+    echo "4     | ⬜ SPEC COMPLETE — not started | AI-compatibility documentation (Phase 4)"
+    echo "5     | ⬜ SPEC COMPLETE — not started | Extensions mechanism (Phase 5)"
+    echo "6     | ⬜ SPEC COMPLETE — not started | Bug-fix + idea-assessment templates (Phase 6)"
+    echo "7     | ⬜ SPEC COMPLETE — not started | Terminology alignment + catalog (Phase 7)"
+    echo "8     | ⬜ SPEC COMPLETE — not started | Minimal sdd CLI wrapper (Phase 8)"
+    echo "9     | ⬜ SPEC COMPLETE — not started | Cross-repo store guidance (Phase 9)"
+    echo "10    | ⬜ SPEC COMPLETE — not started | Agent-skill wrapper + integrations (Phase 10)"
+  fi
+}
+
+# --- Main argument dispatch ---
+
+# Parse global options first (--no-telemetry, -h, -?)
+GLOBAL_ARGS=()
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --no-telemetry)
+      TELEMETRY="0"
+      shift
+      ;;
+    -h|-?|--help)
+      usage
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+# Now the remaining arguments are the subcommand and its args
+if [ $# -eq 0 ] || [ "$1" = "--help" ] || [ "$1" = "-h" ] || [ "$1" = "-?" ]; then
+  usage
+fi
+
+# Dispatch based on first argument (the subcommand)
+case "$1" in
+  init)
+    shift
+    cmd_init "$@"
+    ;;
+  phase)
+    shift
+    cmd_phase "$@"
+    ;;
+  status)
+    cmd_status
+    ;;
+  *)
+    echo "Error: Unknown command '$1'. Use 'sdd --help' for usage." >&2
+    exit 1
+    ;;
+esac
