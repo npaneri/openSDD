@@ -1,0 +1,13 @@
+{
+  "name": "python-fastapi",
+  "description": "Python + FastAPI SpecSet starter with Pydantic validation",
+  "version": "0.1.0",
+  "techStack": {
+    "framework": "FastAPI",
+    "language": "Python",
+    "build": "pip/poetry",
+    "lint": "ruff",
+    "test": "pytest",
+    "backend": "PostgreSQL"
+  }
+}

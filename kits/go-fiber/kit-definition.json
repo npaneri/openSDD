@@ -1,0 +1,13 @@
+{
+  "name": "go-fiber",
+  "description": "Go + Fiber SpecSet starter with testify validation",
+  "version": "0.1.0",
+  "techStack": {
+    "framework": "Fiber",
+    "language": "Go",
+    "build": "go mod",
+    "lint": "staticcheck",
+    "test": "testify",
+    "backend": "PostgreSQL"
+  }
+}

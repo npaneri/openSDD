@@ -1,0 +1,40 @@
+{
+  "kits": {
+    "node-express": {
+      "description": "Node.js + Express.js SpecSet starter with Zod validation",
+      "version": "0.1.0",
+      "techStack": {
+        "framework": "Express",
+        "language": "JavaScript/TypeScript",
+        "build": "npm",
+        "lint": "biomes",
+        "test": "vitest",
+        "backend": "PostgreSQL"
+      }
+    },
+    "python-fastapi": {
+      "description": "Python + FastAPI SpecSet starter with Pydantic validation",
+      "version": "0.1.0",
+      "techStack": {
+        "framework": "FastAPI",
+        "language": "Python",
+        "build": "pip/poetry",
+        "lint": "ruff",
+        "test": "pytest",
+        "backend": "PostgreSQL"
+      }
+    },
+    "go-fiber": {
+      "description": "Go + Fiber SpecSet starter with testify validation",
+      "version": "0.1.0",
+      "techStack": {
+        "framework": "Fiber",
+        "language": "Go",
+        "build": "go mod",
+        "lint": "staticcheck",
+        "test": "testify",
+        "backend": "PostgreSQL"
+      }
+    }
+  }
+}

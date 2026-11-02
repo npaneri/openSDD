@@ -1,0 +1,13 @@
+{
+  "name": "node-express",
+  "description": "Node.js + Express.js SpecSet starter with Zod validation",
+  "version": "0.1.0",
+  "techStack": {
+    "framework": "Express",
+    "language": "JavaScript/TypeScript",
+    "build": "npm",
+    "lint": "biomes",
+    "test": "vitest",
+    "backend": "PostgreSQL"
+  }
+}
