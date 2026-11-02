@@ -1,16 +1,34 @@
 # OpenSDD — Spec-Driven Development, as a skill
 
-OpenSDD is a standalone, publishable repository that turns the Spec-Driven Development (SDD) practice into a portable toolkit any team or individual can adopt with any AI coding assistant. The methodology lives as a skill — accessible via CLI, kits, or skill-aware assistants — **never** as a copied folder in your repo.
+## A Portable Toolkit for AI-Enhanced Software Development
+
+**OpenSDD transforms Spec-Driven Development (SDD) from a manual, repo-heavy practice into a portable skill.** Without OpenSDD, teams adopting SDD typically face these challenges:
+
+| Problem | Traditional SDD | OpenSDD Model |
+|---|---|---|
+| **Methodology footprint** | +12 files copied into every repo (`sdd/`) | +0 files — methodology stays in the OpenSDD ecosystem |
+| **Git tracking bloat** | Methodology files pollute project history | Clean history — only your SpecSets and code |
+| **Onboarding complexity** | "Copy this folder, then run 10+ commands" | "`opensdd kit install node-express`, done" |
+| **Updates** | Manual copy required each time | `opensdd kit install` always uses latest kits |
+| **Cognitive load** | Must wade through methodology files to find project specs | Only your SpecSets and code are visible; methodology is invisible but active |
+| **AI assistant integration** | Assistants don't know SDD discipline | Skill-aware assistants: "Follow OpenSDD kickoff for my API" |
+
+OpenSDD solves all of these by providing SDD as a **skill** — accessible via CLI, pre-built kits, or AI assistant prompts — **never** as a copied folder in your repository.
+
+---
 
 ## 🚀 Quick Start — Three Steps (No `sdd/` Copying)
 
-**No need to copy `sdd/` into your repo.** The methodology is accessible via the OpenSDD CLI or skill-aware assistants; your repo contains only your SpecSets and code.
+**No need to copy `sdd/` into your repo.** The methodology is accessible via the OpenSDD CLI downloaded from GitHub, skill-aware assistants, or pre-built kits. Your repo contains only your SpecSets and code.
 
-### Step 1: Get the OpenSDD CLI
+### Step 1: Install the OpenSDD CLI from GitHub
 ```bash
-# Download and run the OpenSDD CLI from GitHub
-npx opensdd
-# or: download the CLI script and run without global install
+# Download and install the OpenSDD CLI from the GitHub repository
+curl -fsSL https://raw.githubusercontent.com/your-org/openssd/main/bin/sdd > /usr/local/bin/openssd
+chmod +x /usr/local/bin/openssd
+
+# Verify installation (run from any folder):
+openssd --help
 ```
 
 ### Step 2: Choose Your Onboarding Path
@@ -19,7 +37,7 @@ Pick the path that fits your workflow:
 | Path | Command | What Happens |
 |---|---|---|
 | **Kit (recommended)** | `opensdd kit install node-express` | Generates complete SpecSet with Express + Zod + vitest pre-configured. Zero `sdd/` in your repo. |
-| **CLI** | `opensdd kickoff` | Phase-0: 3 questions, auto-detects framework; generates `ideas.md` + SpecSet skeleton |
+| **CLI** | `openssd kickoff` | Phase-0: 3 questions, auto-detects framework; generates ideas.md + SpecSet skeleton |
 | **Skill-aware assistant** | "Follow OpenSDD kickoff for my API" | Assistant reads methodology from OpenSDD; generates SpecSet |
 
 ### Step 3: Continue the Phase Cycle
@@ -27,47 +45,51 @@ After kickoff, progress through phases to develop your project:
 
 ```bash
 # View roadmap status
-opensdd status
+openssd status
 
 # Start next phase
-opensdd phase 1
+openssd phase 1
 
 # List available kits
 opensdd kit list
 ```
+
+---
 
 ## 📋 The Full Phase-Wise Development Cycle
 
 OpenSDD guides your project from ideation through closeout via 6 sequential phases. Each phase builds on the previous one, generating structured SpecSet artifacts that keep your project disciplined and traceable.
 
 ### Phase-0: Kickoff (Entry Point)
-- **Command**: `opensdd kickoff`
+- **Command**: `openssd kickoff`
 - **What happens**: You answer 2-3 questions (framework/language + project name)
 - **Output**: `ideas.md` + initial SpecSet skeleton
 - **Goal**: Clarify project scope, purpose, and target stack
 
 ### Phase-1: Core Features
-- **Command**: `opensdd phase 1`
+- **Command**: `openssd phase 1`
 - **What happens**: Generates task groups with exit criteria; core features defined
 - **Output**: `plan.md` with task groups, `validation.md` with checklist
 - **Goal**: Implement core functionality; exit criteria mark completion
 
 ### Phase-2 through Phase-4: Incremental Development
-- **Command**: `opensdd phase 2`, `opensdd phase 3`, `opensdd phase 4`
+- **Command**: `openssd phase 2`, `openssd phase 3`, `openssd phase 4`
 - **What happens**: Each phase adds specific task groups and gates
 - **Output**: Progressively more detailed `plan.md`, `validation.md`, `roadmap.md`
 - **Goal**: Incremental feature development with clear exit criteria at each gate
 
 ### Phase-5: Closeout
-- **Command**: `opensdd phase 5`
+- **Command**: `openssd phase 5`
 - **What happens**: Closeout verification; lessons learned; version bump to 1.0.0
 - **Output**: Completed SpecSet with all phases `✅ COMPLETE`; `CHANGELOG.md` updated
 - **Goal**: Formal closeout; archive state; transition to new SpecSet or continue development outside SpecSet discipline
 
 ### Ongoing: Status & Maintenance
-- **Command**: `opensdd status`
+- **Command**: `openssd status`
 - **What happens**: Reads your roadmap.md and displays the phase status table
 - **Goal**: Always know where your project stands; identify pending phases or follow-ups
+
+---
 
 ## 📁 What Goes Into Your Repo
 
@@ -91,6 +113,8 @@ my-project/
 
 **⚠️ Git ignore note:** Add `specs/` to your repo's `.gitignore` — OpenSDD-generated SpecSets are specification artifacts, not source code, and should not be tracked in git version control.
 
+---
+
 ## 🏠 How It Works — Full Picture
 
 ### The `sdd/` Folder — Transparent to You
@@ -106,13 +130,13 @@ my-project/
 
 | Pattern | Command | Best For |
 |---|---|---|
-| **CLI** | `npx opensdd kickoff` | Quick start; interactive framework detection; full control |
+| **CLI** | `openssd kickoff` | Quick start; interactive framework detection; full control |
 | **Kit** | `opensdd kit install node-express` | Pre-built starting point; fastest onboarding; kit skeletons generated |
 | **Assistant** | "Follow OpenSDD kickoff for my API" | AI-aware teams; assistant-driven SpecSet generation |
 
 ### What Your Repo Actually Gets
 
-After running `opensdd kickoff` or `opensdd kit install <name>`, your repo receives:
+After running `openssd kickoff` or `opensdd kit install <name>`, your repo receives:
 
 1. **`specs/<project>/`** — Your SpecSet with `mission.md`, `tech-stack.md`, `roadmap.md`, and dated phase directories (`2026-XX-XX-N-<slug>/`)
 2. **`src/`** — Your implementation code (you write this)
@@ -123,9 +147,11 @@ The `sdd/` folder is the **source-of-truth** that powers the CLI and kits behind
 ### Updates & Maintenance
 
 - **Getting latest methodology**: Re-download the OpenSDD CLI from GitHub; `opensdd kit install` always uses the latest kits
-- **Starting a new project**: `opensdd kickoff` or `opensdd kit install <name>`
-- **Adding phases**: `opensdd phase 1`, `opensdd phase 2`, etc.
-- **Closing out**: `opensdd phase 5` — formal closeout, version bump, lessons learned
+- **Starting a new project**: `openssd kickoff` or `opensdd kit install <name>`
+- **Adding phases**: `openssd phase 1`, `openssd phase 2`, etc.
+- **Closing out**: `openssd phase 5` — formal closeout, version bump, lessons learned
+
+---
 
 ## 📦 Kits (Pre-Built Starting Points)
 
@@ -135,21 +161,24 @@ The `sdd/` folder is the **source-of-truth** that powers the CLI and kits behind
 | **python-fastapi** | FastAPI | Python | pip/poetry | ruff | pytest | PostgreSQL |
 | **go-fiber** | Fiber | Go | go mod | staticcheck | testify | PostgreSQL |
 
-**Install a kit:**
+### Install a kit:
 ```bash
 opensdd kit install node-express
-# or: npx opensdd kit install node-express
 ```
 
 Each kit generates a complete SpecSet in your repo with tech stack pre-configured. Kits pass the `sdd/` genericity sweep — only `tech-stack.md` in generated SpecSets contains framework names (as allowed documentation).
 
+---
+
 ## 📖 Documentation
 
-- **Onboarding guide**: "Download OpenSDD CLI from GitHub, then `opensdd kit install <kit-name>`" or "`opensdd kickoff`"
-- **CLI reference**: `opensdd --help` documents all subcommands (kickoff, phase, status, kit install, kit list)
+- **Onboarding guide**: "Download OpenSDD CLI from GitHub, then `opensdd kit install <kit-name>`" or "`openssd kickoff`"
+- **CLI reference**: `openssd --help` documents all subcommands (kickoff, phase, status, kit install, kit list)
 - **Phase lifecycle**: 6 phases (Phase-0 kickoff → Phase-1 through Phase-5 closeout)
 - **Kit documentation**: Each kit's README has installation and customization instructions
 - **Migration guide**: For existing users who copied `sdd/` — three options: keep, migrate to skill model, side-by-side
+
+---
 
 ## 🛠️ Why OpenSDD?
 
@@ -161,6 +190,8 @@ Each kit generates a complete SpecSet in your repo with tech stack pre-configure
 | **Onboarding** | "`opensdd kit install node-express`, done" vs. "copy this, then run 10 commands" |
 | **Cognitive load** | Only see your SpecSets and code; methodology is invisible but active |
 | **Professionalism** | Clean separation of concerns; methodology as package, not repo dependency |
+
+---
 
 ## 🎯 Kit Availability
 
