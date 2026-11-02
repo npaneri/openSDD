@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenSDD — Spec-Driven Development as a Skill</title>
+  <style>
+    :root {
+      --primary: #2d3748;
+      --secondary: #4a5568;
+      --accent: #42b983;
+      --accent-hover: #38a16f;
+      --bg-light: #f7fafc;
+      --bg-white: #ffffff;
+      --text: #2d3748;
+      --muted: #718096;
+      --card: #edf2f7;
+      --border: #cbd5e0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg-white);
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    h1, h2, h3 {
+      color: var(--primary);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 4px solid var(--accent);
+      padding-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+    }
+
+    .hero {
+      background: var(--bg-light);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .cli-command {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      font-family: "SFMono", "Fira Mono", "Roboto Mono", monospace;
+    }
+
+    .kit-card {
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+    }
+
+    .kit-card h3 {
+      margin-top: 0;
+    }
+
+    .kit-card p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .prompt-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      font-family: "SFMono", "Fira Mono", "Roboto Mono", monospace;
+      overflow-x: auto;
+    }
+
+    .troubleshooting-item {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .troubleshooting-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <h1>OpenSDD</h1>
+      <p>Spec-Driven Development, as a skill</p>
+    </header>
+
+    <section id="quick-start" class="section">
+      <h2>🚀 Quick Start — Three Steps</h2>
+      <p>No need to copy <code>sdd/</code> into your repo. The methodology lives in the OpenSDD ecosystem.</p>
+
+      <ol>
+        <li>Download CLI from GitHub and run via `npx opensdd`</li>
+        <li>
+          Choose your path:
+          <ul>
+            <li><b>Kit (recommended):</b> <code>opensdd kit install node-express</code> — generates complete SpecSet with Express + Zod + vitest pre-configured</li>
+            <li><b>CLI:</b> <code>opensdd kickoff</code> — 3 questions, auto-detects framework; generates SpecSet</li>
+            <li><b>Skill-aware assistant:</b> "Follow OpenSDD kickoff for my API" — assistant reads methodology</li>
+          </ul>
+        </li>
+        <li>
+          Continue the cycle:
+          <pre><code># View roadmap status
+opensdd status
+
+# Start next phase
+opensdd phase 1
+
+# List available kits
+opensdd kit list</code></pre>
+        </li>
+      </ol>
+    </section>
+
+    <section id="cli-reference" class="section">
+      <h2>📖 CLI Reference</h2>
+
+      <div class="cli-command"><code>opensdd --help</code> — Document all subcommands</div>
+      <div class="cli-command"><code>opensdd kickoff</code> — Phase-0: 3 questions, auto-detects framework, generates idea.md + skeleton</div>
+      <div class="cli-command"><code>opensdd phase <N></code> — Generate Phase N skeleton (1-5), update roadmap status</div>
+      <div class="cli-command"><code>opensdd status</code> — View roadmap status table</div>
+      <div class="cli-command"><code>opensdd kit install <kit-name></code> — Install pre-built kit (node-express, python-fastapi, go-fiber)</div>
+      <div class="cli-command"><code>opensdd kit list</code> — List available kits</div>
+    </section>
+
+    <section id="kits" class="section">
+      <h2>📦 Pre-Built Kits</h2>
+
+      <div class="kit-card">
+        <h3>node-express</h3>
+        <p><strong>Framework:</strong> Express.js | <strong>Language:</strong> JavaScript/TypeScript | <strong>Build:</strong> npm | <strong>Lint:</strong> biomes | <strong>Test:</strong> vitest | <strong>Backend:</strong> PostgreSQL</p>
+        <p>Install: <code>opensdd kit install node-express</code></p>
+      </div>
+
+      <div class="kit-card">
+        <h3>python-fastapi</h3>
+        <p><strong>Framework:</strong> FastAPI | <strong>Language:</strong> Python | <strong>Build:</strong> pip/poetry | <strong>Lint:</strong> ruff | <strong>Test:</strong> pytest | <strong>Backend:</strong> PostgreSQL</p>
+        <p>Install: <code>opensdd kit install python-fastapi</code></p>
+      </div>
+
+      <div class="kit-card">
+        <h3>go-fiber</h3>
+        <p><strong>Framework:</strong> Fiber | <strong>Language:</strong> Go | <strong>Build:</strong> go mod | <strong>Lint:</strong> staticcheck | <strong>Test:</strong> testify | <strong>Backend:</strong> PostgreSQL</p>
+        <p>Install: <code>opensdd kit install go-fiber</code></p>
+      </div>
+    </section>
+
+    <section id="ai-prompts" class="section">
+      <h2>🤖 AI Assistant Prompts</h2>
+
+      <p>Reference prompts for major AI assistants:</p>
+
+      <div class="prompt-box">"Follow opensdd kickoff to start a SpecSet for <feature>"</div>
+      <div class="prompt-box">/follow opensdd kickoff</div>
+      <div class="prompt-box">"Read opensdd kickoff and start a SpecSet for <feature>"</div>
+      <div class="prompt-box">"opensdd kickoff user authentication"</div>
+    </section>
+
+    <section id="troubleshooting" class="section">
+      <h2>🛠️ Troubleshooting</h2>
+
+      <div class="troubleshooting-item">
+        <p><strong>"sdd/" folder in repo:</strong> Remove it; use <code>opensdd kickoff</code> instead. The methodology is accessed via the npm package/CLI, not by copying folders.</p>
+      </div>
+
+      <div class="troubleshooting-item">
+        <p><strong>Phase not generating:</strong> Check your <code>ideas.md</code> has sufficient info. Run <code>opensdd kickoff -f ideas.md</code> to re-trigger with new input.</p>
+      </div>
+
+      <div class="troubleshooting-item">
+        <p><strong>Tech stack pre-fill wrong:</strong> Re-run <code>opensdd kickoff -f ideas.md</code> with corrected ideas file, or edit <code>tech-stack.md</code> directly (safe; low breakage risk).</p>
+      </div>
+
+      <div class="troubleshooting-item">
+        <p><strong>SpecSets not tracked in git:</strong> Add <code>specs/</code> to your repo's <code>.gitignore</code>. OpenSDD-generated SpecSets are specification artifacts, not source code.</p>
+      </div>
+    </section>
+
+    <footer class="section" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--muted);">
+      <p>Generated by OpenSDD v1.0.0 — the skill-based Spec-Driven Development system.<br>
+      <a href="https://github.com/your-org/opensdd" target="_blank" rel="noopener">GitHub</a> | MIT License</p>
+    </footer>
+  </div>
+</body>
+</html>
