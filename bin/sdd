@@ -57,21 +57,51 @@ usage() {
 cmd_init() {
   local specset_name
 
+  # Auto mode: if no name provided, default to SpecSet-1-Initial
   if [ $# -lt 1 ]; then
-    echo "Error: 'sdd init' requires a SpecSet name." >&2
-    echo "Usage: sdd init <SpecSetName>" >&2
+    specset_name="SpecSet-1-Initial"
+  else
+    specset_name="$1"
+  fi
+
+  # Create specs/ directory if it doesn't exist
+  if [ ! -d "specs" ]; then
+    mkdir -p "specs"
+  fi
+
+  # Validate name: non-empty, no spaces
+  if [ -z "$specset_name" ]; then
+    echo "Error: SpecSet name must be non-empty." >&2
+    exit 1
+  fi
+  if echo "$specset_name" | grep -q ' '; then
+    echo "Error: SpecSet name must not contain spaces." >&2
     exit 1
   fi
 
-  specset_name="$1"
+  # Check if SpecSet directory already exists
+  local specset_dir="specs/$specset_name"
+  if [ -d "$specset_dir" ]; then
+    echo "Error: SpecSet directory '$specset_dir' already exists. Remove or rename it first." >&2
+    exit 1
+  fi
 
   # Telemetry: count the command name only (if enabled)
   if telemetry_enabled; then
     printf 'telemetry:command=sdd init version=0.1.0\n' >&2
   fi
 
-  # Call the scaffold.sh equivalent — resolve scaffold.sh relative to SCRIPT_DIR
-  sh "$SCRIPT_DIR/../scripts/scaffold.sh" specset "$specset_name"
+  # Create the SpecSet directory under specs/
+  mkdir -p "$specset_dir"
+
+  # Copy constitution templates (dropping .template suffix)
+  cp "$SCRIPT_DIR/../sdd/templates/mission.template.md" "$specset_dir/mission.md"
+  cp "$SCRIPT_DIR/../sdd/templates/tech-stack.template.md" "$specset_dir/tech-stack.md"
+  cp "$SCRIPT_DIR/../sdd/templates/roadmap.template.md" "$specset_dir/roadmap.md"
+
+  # Print closing hint
+  echo "SpecSet '$specset_name' created successfully."
+  echo "Now fill the placeholders in the new files — see sdd/02-constitution.md for guidance."
 }
 
 # --- Subcommand: phase ---
@@ -107,9 +137,9 @@ cmd_phase() {
   fi
 
   # Check that the SpecSet exists
-  local specset_dir="$SCRIPT_DIR/../specs/$specset_name"
+  local specset_dir="specs/$specset_name"
   if [ ! -d "$specset_dir" ]; then
-    echo "Error: SpecSet directory '$specset_dir' does not exist. Create it first with 'scaffold.sh specset <SpecSetName>.'" >&2
+    echo "Error: SpecSet directory '$specset_dir' does not exist. Create it first with 'sdd init <SpecSetName>.'" >&2
     exit 1
   fi
 
