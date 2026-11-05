@@ -17,11 +17,11 @@ Five sequential phases, ordered by dependency. Each phase has a dated spec direc
 
 | Phase | Feature | Spec directory | Status |
 |---|---|---|---|
-| 4.1 | Kit definitions (node-express, python-fastapi, go-fiber) | `2026-11-02-4.1-kit-definitions/` | ⬜ SPEC COMPLETE — not started |
-| 4.2 | Kit registry (kits.json) | `2026-11-02-4.2-registry/` | ⬜ SPEC COMPLETE — not started |
-| 4.3 | `opensdd kit install` command | `2026-11-02-4.3-install-command/` | ⬜ SPEC COMPLETE — not started |
-| 4.4 | Documentation and examples | `2026-11-02-4.4-documentation/` | ⬜ SPEC COMPLETE — not started |
-| 4.5 | Publish kits with npm/package | `2026-11-02-4.5-publish/` | ⬜ SPEC COMPLETE — not started |
+| 4.1 | Kit definitions (node-express, python-fastapi, go-fiber) | `2026-11-02-4.1-kit-definitions/` | ✅ COMPLETE |
+| 4.2 | Kit registry (kits.json) | `2026-11-02-4.2-registry/` | ✅ COMPLETE |
+| 4.3 | `opensdd kit install` command | `2026-11-02-4.3-install-command/` | ✅ COMPLETE |
+| 4.4 | Documentation and examples | `2026-11-02-4.4-documentation/` | ✅ COMPLETE |
+| 4.5 | Publish kits with npm/package | `2026-11-02-4.5-publish/` | ✅ COMPLETE |
 
 Status vocabulary: `⬜ SPEC COMPLETE — not started` → `🔨 IN PROGRESS` → `✅ COMPLETE` (checklist filled in `validation.md`, committed).
 

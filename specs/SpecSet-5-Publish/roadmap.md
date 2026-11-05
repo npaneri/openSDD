@@ -18,12 +18,12 @@ Six sequential phases, ordered by dependency. Each phase has a dated spec direct
 
 | Phase | Feature | Spec directory | Status |
 |---|---|---|---|
-| 5.1 | npm package skeleton & package.json | `2026-11-02-5.1-package-skeleton/` | ⬜ SPEC COMPLETE — not started |
-| 5.2 | Full documentation (onboarding, CLI, kits, migration) | `2026-11-02-5.2-documentation/` | ⬜ SPEC COMPLETE — not started |
-| 5.3 | Backward compatibility guide | `2026-11-02-5.3-backward-compat/` | ⬜ SPEC COMPLETE — not started |
-| 5.4 | Changelog & version bump 0.1.0 → 1.0.0 | `2026-11-02-5.4-changelog/` | ⬜ SPEC COMPLETE — not started |
-| 5.5 | npm package publish & verify | `2026-11-02-5.5-publish/` | ⬜ SPEC COMPLETE — not started |
-| 5.6 | Final review & release | `2026-11-02-5.6-final-review/` | ⬜ SPEC COMPLETE — not started |
+| 5.1 | npm package skeleton & package.json | `2026-11-02-5.1-package-skeleton/` | ✅ COMPLETE |
+| 5.2 | Full documentation (onboarding, CLI, kits, migration) | `2026-11-02-5.2-documentation/` | ✅ COMPLETE |
+| 5.3 | Backward compatibility guide | `2026-11-02-5.3-backward-compat/` | ✅ COMPLETE |
+| 5.4 | Changelog & version bump 0.1.0 → 1.0.0 | `2026-11-02-5.4-changelog/` | ✅ COMPLETE |
+| 5.5 | npm package publish & verify | `2026-11-02-5.5-publish/` | ✅ COMPLETE |
+| 5.6 | Final review & release | `2026-11-02-5.6-final-review/` | ✅ COMPLETE |
 
 Status vocabulary: `⬜ SPEC COMPLETE — not started` → `🔨 IN PROGRESS` → `✅ COMPLETE` (checklist filled in `validation.md`, committed).
 

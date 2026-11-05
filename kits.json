@@ -35,6 +35,18 @@
         "test": "testify",
         "backend": "PostgreSQL"
       }
+    },
+    "python-playwright": {
+      "description": "Python + Playwright browser automation SpecSet starter with pytest",
+      "version": "0.1.0",
+      "techStack": {
+        "framework": "Playwright",
+        "language": "Python",
+        "build": "pip/uv",
+        "lint": "ruff",
+        "test": "pytest + pytest-playwright",
+        "backend": "None (browser automation)"
+      }
     }
   }
 }

@@ -12,20 +12,14 @@
 
 **Basis**: SpecSet-2 model (zero `sdd/` in user repos); CLI prototype must enable the skill-based onboarding flow.
 
-## Phase Order
-
-Six sequential phases, ordered by dependency. Each phase has a dated spec directory under this SpecSet with `requirements.md`, `plan.md`, and `validation.md`.
-
 | Phase | Feature | Spec directory | Status |
 |---|---|---|---|
-| 3.1 | CLI skeleton + `kickoff` subcommand | `2026-11-02-3.1-cli-skeleton/` | ⬜ SPEC COMPLETE — not started |
-| 3.2 | Project detection (2-3 questions) | `2026-11-02-3.2-project-detection/` | ⬜ SPEC COMPLETE — not started |
-| 3.3 | Skill registry (mapping → skills) | `2026-11-02-3.3-skill-registry/` | ⬜ SPEC COMPLETE — not started |
-| 3.4 | `phase` subcommand | `2026-11-02-3.4-phase-subcommand/` | ⬜ SPEC COMPLETE — not started |
-| 3.5 | `status` subcommand | `2026-11-02-3.5-status-subcommand/` | ⬜ SPEC COMPLETE — not started |
-| 3.6 | End-to-end genericity verification | `2026-11-02-3.6-genericity-verification/` | ⬜ SPEC COMPLETE — not started |
-
-Status vocabulary: `⬜ SPEC COMPLETE — not started` → `🔨 IN PROGRESS` → `✅ COMPLETE` (checklist filled in `validation.md`, committed).
+| 3.1 | CLI skeleton + `kickoff` subcommand | `2026-11-02-3.1-cli-skeleton/` | ✅ COMPLETE |
+| 3.2 | Project detection (2-3 questions) | `2026-11-02-3.2-project-detection/` | ✅ COMPLETE |
+| 3.3 | Skill registry (mapping → skills) | `2026-11-02-3.3-skill-registry/` | ✅ COMPLETE |
+| 3.4 | `phase` subcommand | `2026-11-02-3.4-phase-subcommand/` | ✅ COMPLETE |
+| 3.5 | `status` subcommand | `2026-11-02-3.5-status-subcommand/` | ✅ COMPLETE |
+| 3.6 | End-to-end genericity verification | `2026-11-02-3.6-genericity-verification/` | ✅ COMPLETE |
 
 ---
 

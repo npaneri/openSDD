@@ -109,8 +109,8 @@ can process them. The table below summarizes the universal pattern:
    toolkit repo, or use `sdd init` from the `bin/sdd` CLI wrapper).
 2. **Reference guides by path** — never by content summary or memory. The file
    paths are the invariant; content may vary by project.
-3. **Start at stage 01** — kickoff & alignment. Every SpecSet begins there.
-4. **Follow the cycle** — 01 → 02 → 03 → 04 → 05. The roadmap status table
+3. **Start at stage 1** — kickoff & alignment. Every SpecSet begins there.
+4. **Follow the cycle** — Stage 1 → Stage 2 → Stage 3 → Stage 4 → Stage 5. The roadmap status table
    tracks progress: `⬜ SPEC COMPLETE → 🔨 IN PROGRESS → ✅ COMPLETE`.
 5. **When stuck,** reference the degradation table in `mission.md` — it uses
    AI-agnostic vocabulary that every assistant understands.

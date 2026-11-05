@@ -17,11 +17,11 @@ Ten sequential phases, ordered by dependency. Each phase has a dated spec direct
 
 | Phase | Feature | Spec directory | Status |
 |---|---|---|---|
-| 1 | Rationale + model definition (this SpecSet) | `2026-11-02-1-rationale-model/` | ⬜ SPEC COMPLETE — not started |
-| 2 | CLI prototype with project detection | `2026-11-02-2-cli-prototype/` | ⬜ SPEC COMPLETE — not started |
-| 3 | Kit system (node-express, python-fastapi, go-fiber) | `2026-11-02-3-kit-system/` | ⬜ SPEC COMPLETE — not started |
-| 4 | Skill marketplace (community skills) | `2026-11-02-4-skill-marketplace/` | ⬜ SPEC COMPLETE — not started |
-| 5 | Publish, docs, backward compatibility guide | `2026-11-02-5-publish-guide/` | ⬜ SPEC COMPLETE — not started |
+| 1 | Rationale + model definition (this SpecSet) | `2026-11-02-1-rationale-model/` | ✅ COMPLETE |
+| 2 | CLI prototype with project detection | `2026-11-02-2-cli-prototype/` | ✅ COMPLETE |
+| 3 | Kit system (node-express, python-fastapi, go-fiber) | `2026-11-02-3-kit-system/` | ✅ COMPLETE |
+| 4 | Skill marketplace (community skills) | `2026-11-02-4-skill-marketplace/` | ✅ COMPLETE |
+| 5 | Publish, docs, backward compatibility guide | `2026-11-02-5-publish-guide/` | ✅ COMPLETE |
 
 Status vocabulary: `⬜ SPEC COMPLETE — not started` → `🔨 IN PROGRESS` → `✅ COMPLETE` (checklist filled in `validation.md`, committed).
 

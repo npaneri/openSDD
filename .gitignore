@@ -6,3 +6,5 @@ Thumbs.db
 *.swp
 *.swo
 *~
+# Generated SpecSets should be gitignored by users
+specs/

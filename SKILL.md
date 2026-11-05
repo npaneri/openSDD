@@ -5,6 +5,15 @@ skill-aware agent (OpenCode, Claude Code, Codex, Copilot) can auto-drive the
 cycle. This file is the *only* tool-specific content — it maps stage names to
 file paths, never invoking tool-specific syntax inside the guides themselves.
 
+## Setup Note
+This file references methodology guides by relative path (`sdd/01-kickoff-and-alignment.md`).
+For these paths to resolve correctly, one of the following must be true:
+1. You are running your AI session from the openSDD repo root (`~/.opensdd/`), OR
+2. You have copied the `sdd/` directory into your project root.
+
+The recommended approach is: `git clone https://github.com/npaneri/openSDD ~/.opensdd`
+and reference files as `~/.opensdd/sdd/01-kickoff-and-alignment.md`.
+
 ## Stage Invocation Resources
 
 Each stage is invocable by referencing the guide file path. An agent can auto-drive
@@ -12,11 +21,11 @@ the cycle by following these invocations.
 
 | Stage | Resource Name | File Path | When to Invoke |
 |---|---|---|---|
-| 00 — Kickoff & Alignment | `sdd/01-kickoff-and-alignment.md` | `sdd/01-kickoff-and-alignment.md` | At the start of a new SpecSet — before any files are written. Use the grouped questions to scope the feature area with stakeholders. |
-| 01 — Constitution Creation | `sdd/02-constitution.md` | `sdd/02-constitution.md` | After kickoff alignment is complete. Creates the three constitution files (`mission.md`, `tech-stack.md`, `roadmap.md`). |
-| 02 — Phase Spec Creation | `sdd/03-phase-specs.md` | `sdd/03-phase-specs.md` | After constitution is approved. Creates the three phase spec files (`requirements.md`, `plan.md`, `validation.md`) for a new phase. |
-| 03 — Implementation & Testing | `sdd/04-implementation-and-testing.md` | `sdd/04-implementation-and-testing.md` | After phase specs are approved and the roadmap status is `🔨 IN PROGRESS`. Execute task groups in plan order; tests born with code. |
-| 04 — Validation, Merge & Closeout | `sdd/05-validation-and-closeout.md` | `sdd/05-validation-and-closeout.md` | After implementation is complete. Work the checklist top to bottom; fill Status column per item. Merge when checklist 100% green. |
+| 1 — Kickoff & Alignment | `sdd/01-kickoff-and-alignment.md` | `sdd/01-kickoff-and-alignment.md` | At the start of a new SpecSet — before any files are written. Use the grouped questions to scope the feature area with stakeholders. |
+| 2 — Constitution Creation | `sdd/02-constitution.md` | `sdd/02-constitution.md` | After kickoff alignment is complete. Creates the three constitution files (`mission.md`, `tech-stack.md`, `roadmap.md`). |
+| 3 — Phase Spec Creation | `sdd/03-phase-specs.md` | `sdd/03-phase-specs.md` | After constitution is approved. Creates the three phase spec files (`requirements.md`, `plan.md`, `validation.md`) for a new phase. |
+| 4 — Implementation & Testing | `sdd/04-implementation-and-testing.md` | `sdd/04-implementation-and-testing.md` | After phase specs are approved and the roadmap status is `🔨 IN PROGRESS`. Execute task groups in plan order; tests born with code. |
+| 5 — Validation, Merge & Closeout | `sdd/05-validation-and-closeout.md` | `sdd/05-validation-and-closeout.md` | After implementation is complete. Work the checklist top to bottom; fill Status column per item. Merge when checklist 100% green. |
 
 ## Driving the Cycle — Agent Prose
 
