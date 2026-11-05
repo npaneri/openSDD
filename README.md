@@ -308,6 +308,21 @@ For a full compatibility table, see `docs/integrations.md`.
 **openSDD's design intent sits at Level 2.5** — a novel position no competitor currently occupies cleanly. If the implementation matched the design intent, openSDD would be one of the strongest independent SDD tools available.
 
 ---
+## Updating openSDD
+
+If you have already cloned the repository, getting the latest updates is simple:
+
+```bash
+# From your cloned openSDD directory
+git pull
+
+# Then reload the CLI (if installed via symlink)
+# The CLI picks up changes on next invocation no restart needed
+```
+
+**Note:** If you modified `kits.json` or added new kits, you may need to re-run the CLI or refresh your PATH.
+
+---
 ## License
 
 [MIT](LICENSE) — free to use, adapt, and distribute.
