@@ -21,36 +21,20 @@
 
 set -eu
 
+# --- Resolve script directory (works even with symlinks) ---
+SCRIPT_DIR="$(cd "$(dirname "$0")" 2>/dev/null && pwd || echo "$(dirname "$0")")"
+
 # --- Telemetry control ---
 
 # Default: telemetry enabled
 TELEMETRY="1"
 
-# Parse global options first (before subcommand)
-while [ $# -gt 0 ]; do
-  case "$1" in
-    --no-telemetry)
-      TELEMETRY="0"
-      shift
-      ;;
-    -h|-?|--help)
-      # Show usage and exit
-      exec sed 's/^# //' < "$0" | head -1 | cat -
-      ;;
-    *)
-      # No more global options, stop parsing
-      break
-  esac
-done
-
-# Telemetry count function
-count_telemetry() {
-  local cmd="$1"
-  # Print to stderr so it doesn't interfere with normal output
-  printf 'telemetry:command=%s version=0.1.0\\n' "$cmd" >&2
+# Check if telemetry is enabled (inverse of TELEMETRY variable)
+telemetry_enabled() {
+  [ "$TELEMETRY" = "1" ]
 }
 
-# Show usage/help
+# --- Usage/help function (must be defined before it's called) ---
 usage() {
   echo "OpenSDD — Spec-Driven Development CLI"
   echo ""
@@ -68,11 +52,6 @@ usage() {
   exit 1
 }
 
-# Check if telemetry is enabled (inverse of TELEMETRY variable)
-telemetry_enabled() {
-  [ "$TELEMETRY" = "1" ]
-}
-
 # --- Subcommand: init ---
 
 cmd_init() {
@@ -88,33 +67,59 @@ cmd_init() {
 
   # Telemetry: count the command name only (if enabled)
   if telemetry_enabled; then
-    count_telemetry "sdd init"
+    printf 'telemetry:command=sdd init version=0.1.0\n' >&2
   fi
 
-  # Call the scaffold.sh equivalent
-  sh "$(dirname "$0")/../scripts/scaffold.sh" specset "$specset_name"
+  # Call the scaffold.sh equivalent — resolve scaffold.sh relative to SCRIPT_DIR
+  sh "$SCRIPT_DIR/../scripts/scaffold.sh" specset "$specset_name"
 }
 
 # --- Subcommand: phase ---
 
 cmd_phase() {
+  local specset_name phase_number slug
+
+  # Validate args: need exactly 3 arguments (SpecSetName, N, slug)
   if [ $# -lt 3 ]; then
-    echo "Error: 'sdd phase' requires 3 arguments: SpecSetName N slug." >&2
+    echo "Error: 'sdd phase' requires 3 arguments: SpecSetName N slug" >&2
     echo "Usage: sdd phase <SpecSetName> <N> <slug>" >&2
     exit 1
   fi
 
-  local specset_name="$1"
-  local phase_number="$2"
-  local slug="$3"
+  specset_name="$1"
+  phase_number="$2"
+  slug="$3"
+
+  # Validate phase number: must be numeric
+  if ! echo "$phase_number" | grep -qE '^[0-9]+$'; then
+    echo "Error: Phase number must be numeric." >&2
+    exit 1
+  fi
+
+  # Validate slug: kebab-safe (alphanumeric + hyphens, no spaces)
+  if echo "$slug" | grep -q ' '; then
+    echo "Error: Slug must not contain spaces." >&2
+    exit 1
+  fi
+  if echo "$slug" | grep -qE '[^a-zA-Z0-9-]'; then
+    echo "Error: Slug must be kebab-case (alphanumeric + hyphens only)." >&2
+    exit 1
+  fi
+
+  # Check that the SpecSet exists
+  local specset_dir="$SCRIPT_DIR/../specs/$specset_name"
+  if [ ! -d "$specset_dir" ]; then
+    echo "Error: SpecSet directory '$specset_dir' does not exist. Create it first with 'scaffold.sh specset <SpecSetName>.'" >&2
+    exit 1
+  fi
 
   # Telemetry: count the command name only
   if telemetry_enabled; then
-    count_telemetry "sdd phase"
+    printf 'telemetry:command=sdd phase version=0.1.0\n' >&2
   fi
 
-  # Call the scaffold.sh equivalent
-  sh "$(dirname "$0")/../scripts/scaffold.sh" phase "$specset_name" "$phase_number" "$slug"
+  # Call the scaffold.sh equivalent — resolve relative to SCRIPT_DIR
+  sh "$SCRIPT_DIR/../scripts/scaffold.sh" phase "$specset_name" "$phase_number" "$slug"
 }
 
 # --- Subcommand: status ---
@@ -123,49 +128,42 @@ cmd_status() {
   # Parse the roadmap status table from specs and print the phase list
   # This is a lightweight operation — just read and display the status table
 
-  local specs_dir="specs/SpecSet-1-OpenSDD_Foundation"
+  local specs_root="specs"
 
-  if [ ! -d "$specs_dir" ]; then
-    echo "Error: SpecSet directory '$specs_dir' not found." >&2
-    echo "Run 'sdd init' first to create a SpecSet, or ensure the SpecSet exists." >&2
+  if [ ! -d "$specs_root" ]; then
+    echo "Error: No 'specs/' directory found in the current directory." >&2
+    echo "Run 'sdd init <SpecSetName>' first to create a SpecSet." >&2
     exit 1
   fi
 
   # Telemetry: count the command name only
   if telemetry_enabled; then
-    count_telemetry "sdd status"
+    printf 'telemetry:command=sdd status version=0.1.0\n' >&2
   fi
 
-  # Print the status table header
-  echo "OpenSDD SpecSet-1 Roadmap Status"
-  echo "================================="
-  echo ""
+  # Scan all SpecSets in specs/ and display their Phase Order tables
+  local found=0
+  for specset_dir in "$specs_root"/*/; do
+    [ -d "$specset_dir" ] || continue
+    local roadmap="$specset_dir/roadmap.md"
+    if [ -f "$roadmap" ]; then
+      found=1
+      echo "=== $(basename "$specset_dir") ==="
+      grep -A 50 "## Phase Order" "$roadmap" | head -20
+      echo ""
+    fi
+  done
 
-  # Try to read the roadmap.md, fall back to a simple table if not found
-  if [ -f "$specs_dir/roadmap.md" ]; then
-    # Extract the Phase Order section
-    grep -A 99 "## Phase Order" "$specs_dir/roadmap.md" | head -100
-  else
-    # Fallback: print a simple status table
-    echo "Phase | Status | Description"
-    echo "-------|--------|------------"
-    echo "1     | ✅ COMPLETE | Repo scaffolding (Phase 1)"
-    echo "2     | ✅ COMPLETE | Minimal example SpecSet (Phase 2)"
-    echo "3     | ✅ COMPLETE | scaffold.sh scaffolding script (Phase 3)"
-    echo "4     | ⬜ SPEC COMPLETE — not started | AI-compatibility documentation (Phase 4)"
-    echo "5     | ⬜ SPEC COMPLETE — not started | Extensions mechanism (Phase 5)"
-    echo "6     | ⬜ SPEC COMPLETE — not started | Bug-fix + idea-assessment templates (Phase 6)"
-    echo "7     | ⬜ SPEC COMPLETE — not started | Terminology alignment + catalog (Phase 7)"
-    echo "8     | ⬜ SPEC COMPLETE — not started | Minimal sdd CLI wrapper (Phase 8)"
-    echo "9     | ⬜ SPEC COMPLETE — not started | Cross-repo store guidance (Phase 9)"
-    echo "10    | ⬜ SPEC COMPLETE — not started | Agent-skill wrapper + integrations (Phase 10)"
+  if [ "$found" -eq 0 ]; then
+    echo "No SpecSets found in $specs_root/." >&2
+    echo "Run 'sdd init <SpecSetName>' to create one." >&2
+    exit 1
   fi
 }
 
 # --- Main argument dispatch ---
 
 # Parse global options first (--no-telemetry, -h, -?)
-GLOBAL_ARGS=()
 while [ $# -gt 0 ]; do
   case "$1" in
     --no-telemetry)
